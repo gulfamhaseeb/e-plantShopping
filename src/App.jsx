@@ -6,30 +6,36 @@ import AboutUs from './AboutUs.jsx';
 import './App.css';
 
 function App() {
-  // 'landing' | 'products' | 'cart'
   const [view, setView] = useState('landing');
+  const [showProductList, setShowProductList] = useState(false);
 
   const navigate = (target) => {
     setView(target);
-    window.scrollTo({ top: 0 });
+    setShowProductList(target === 'products');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleGetStartedClick = () => {
+    setShowProductList(true);
+    setView('products');
   };
 
   return (
-    <div className="app">
+    <div className="app-container">
       <Navbar view={view} onNavigate={navigate} />
 
       {view === 'landing' && (
-        <main className="landing">
+        <main className="landing-page background-image">
           <div className="landing-hero">
-            <h1>Paradise Nursery</h1>
+            <h1>Welcome to Paradise Nursery</h1>
             <p className="landing-tagline">
               House plants that clean your air, scent your rooms and look after
               you in return.
             </p>
             <button
               type="button"
-              className="btn btn-lime btn-large"
-              onClick={() => navigate('products')}
+              className="get-started-button"
+              onClick={handleGetStartedClick}
             >
               Get Started
             </button>
@@ -38,10 +44,8 @@ function App() {
         </main>
       )}
 
-      {view === 'products' && (
-        <main>
-          <ProductList />
-        </main>
+      {showProductList && view === 'products' && (
+        <ProductList onNavigate={navigate} />
       )}
 
       {view === 'cart' && (

@@ -17,7 +17,6 @@ function CartItem({ onContinueShopping }) {
   const handleIncrement = (item) =>
     dispatch(updateQuantity({ name: item.name, quantity: item.quantity + 1 }));
 
-  // Decreasing from 1 removes the item (handled in the reducer)
   const handleDecrement = (item) =>
     dispatch(updateQuantity({ name: item.name, quantity: item.quantity - 1 }));
 
@@ -37,11 +36,11 @@ function CartItem({ onContinueShopping }) {
 
   if (cart.length === 0) {
     return (
-      <div className="cart">
+      <div className="cart-container">
         <div className="cart-empty">
           <h1>Your cart is empty</h1>
           <p>Add a few plants and they will show up here.</p>
-          <button type="button" className="btn btn-primary" onClick={handleContinueShopping}>
+          <button type="button" className="get-started-button" onClick={handleContinueShopping}>
             Continue Shopping
           </button>
         </div>
@@ -50,7 +49,7 @@ function CartItem({ onContinueShopping }) {
   }
 
   return (
-    <div className="cart">
+    <div className="cart-container">
       <h1>Shopping cart</h1>
       <p className="cart-total-amount">
         Total Cart Amount: <strong>${totalAmount}</strong>
@@ -61,7 +60,7 @@ function CartItem({ onContinueShopping }) {
 
       <div className="cart-items">
         {cart.map((item) => (
-          <article className="cart-card" key={item.name}>
+          <article className="cart-item" key={item.name}>
             <img className="cart-item-image" src={item.image} alt={item.name} />
             <div className="cart-item-details">
               <h3 className="cart-item-name">{item.name}</h3>
@@ -87,7 +86,7 @@ function CartItem({ onContinueShopping }) {
               </div>
               <p className="cart-item-total">Subtotal: ${calculateItemTotal(item)}</p>
             </div>
-            <button type="button" className="btn btn-danger" onClick={() => handleRemove(item)}>
+            <button type="button" className="cart-item-delete" onClick={() => handleRemove(item)}>
               Delete
             </button>
           </article>
@@ -95,10 +94,10 @@ function CartItem({ onContinueShopping }) {
       </div>
 
       <div className="cart-actions">
-        <button type="button" className="btn btn-secondary" onClick={handleContinueShopping}>
+        <button type="button" className="get-started-button" onClick={handleContinueShopping}>
           Continue Shopping
         </button>
-        <button type="button" className="btn btn-primary" onClick={handleCheckout}>
+        <button type="button" className="get-started-button1" onClick={handleCheckout}>
           Checkout
         </button>
       </div>
